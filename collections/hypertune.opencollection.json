@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hypertune Edge API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "in": "query",
+        "key": "token",
+        "value": "{{token}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Evaluate flags (GET)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://edge.hypertune.com/graphql?token={{token}}&query={{urlEncodedQuery}}"
+          },
+          "docs": "Send a URL-encoded GraphQL query to Hypertune Edge with the URL-encoded project token. The query must contain all field arguments so flag logic is fully reduced into a JSON result."
+        },
+        {
+          "info": {
+            "name": "Evaluate flags (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://edge.hypertune.com/graphql?token={{token}}",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"query\": \"query TestQuery { root(context: {environment: \\\"development\\\", user: {id: \\\"test_id\\\"}}) { exampleFlag } }\",\n  \"variables\": {}\n}"
+            }
+          },
+          "docs": "Standard GraphQL POST form of the evaluation endpoint. The query must contain all field arguments so flag logic is fully reduced to JSON on Hypertune Edge."
+        }
+      ]
+    }
+  ]
+}

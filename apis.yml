@@ -1,0 +1,128 @@
+aid: hypertune
+url: https://raw.githubusercontent.com/api-evangelist/hypertune/refs/heads/main/apis.yml
+name: Hypertune
+kind: company
+description: Hypertune is a type-safe, Git-based platform for feature flags, A/B testing,
+  experimentation, analytics, and app configuration. Flag logic is authored in Hyperlang
+  and modeled as a GraphQL schema; SDKs use a CLI to generate fully typed clients,
+  fetch flag logic once from Hypertune Edge (Cloudflare CDN) at initialization, then
+  evaluate flags locally and synchronously in memory. A GraphQL Edge API offers a
+  no-SDK path, and analytics events are flushed back to Hypertune Edge in the background.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Feature Flags
+- Experimentation
+- A/B Testing
+- Analytics
+- App Configuration
+- GraphQL
+- Edge
+created: '2026-06-20'
+modified: '2026-06-20'
+specificationVersion: '0.19'
+apis:
+- aid: hypertune:hypertune-flag-evaluation-graphql-api
+  name: Hypertune Flag Evaluation / Config (GraphQL / SDK) API
+  tags:
+  - Feature Flags
+  - GraphQL
+  - SDK
+  - Configuration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.hypertune.com/concepts/graphql-api
+  baseURL: https://edge.hypertune.com/graphql
+  properties:
+  - url: https://docs.hypertune.com/concepts/graphql-api
+    type: Documentation
+  - url: https://docs.hypertune.com/getting-started/graphql-quickstart
+    type: APIReference
+  - url: openapi/hypertune-openapi.yml
+    type: OpenAPI
+  - url: graphql/hypertune-graphql.md
+    type: GraphQL
+  - url: collections/hypertune.postman_collection.json
+    type: PostmanCollection
+  description: Evaluate feature flags, experiments, and app configuration. Flag logic
+    is defined in Hyperlang and exposed as a GraphQL schema; queries to Hypertune Edge
+    must supply all field arguments (the targeting context) so logic is fully reduced
+    to a JSON result. Typically used through the type-safe TypeScript SDK and CLI-generated
+    client, with a token-authenticated GraphQL Edge endpoint available for no-SDK access.
+- aid: hypertune:hypertune-edge-config-delivery-api
+  name: Hypertune Edge Config Delivery API
+  tags:
+  - Edge
+  - CDN
+  - Configuration
+  - Initialization
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.hypertune.com/concepts/architecture
+  baseURL: https://edge.hypertune.com
+  properties:
+  - url: https://docs.hypertune.com/concepts/architecture
+    type: Documentation
+  - url: https://docs.hypertune.com/sdk-reference/initialization
+    type: APIReference
+  - url: openapi/hypertune-openapi.yml
+    type: OpenAPI
+  description: Edge-delivered flag logic. SDKs make a single network request at initialization
+    to fetch the project's flag logic from Hypertune Edge, served from Cloudflare CDN
+    so there is no direct dependency on application servers, then evaluate flags locally
+    and synchronously in memory and listen for logic updates in the background.
+- aid: hypertune:hypertune-analytics-events-api
+  name: Hypertune Analytics / Events API
+  tags:
+  - Analytics
+  - Events
+  - Experimentation
+  - Logging
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.hypertune.com/analytics/guide
+  baseURL: https://edge.hypertune.com
+  properties:
+  - url: https://docs.hypertune.com/analytics/guide
+    type: Documentation
+  - url: https://docs.hypertune.com/analytics/overview
+    type: APIReference
+  - url: openapi/hypertune-openapi.yml
+    type: OpenAPI
+  description: Real-time analytics and event logging. SDKs collect flag evaluations,
+    experiment exposures, and analytics events (logged via event-trigger flags that
+    evaluate a "Log event" expression) and flush them to Hypertune Edge in the background;
+    flushLogs can be awaited in serverless environments to guarantee delivery.
+- aid: hypertune:hypertune-management-api
+  name: Hypertune Management API
+  tags:
+  - Management
+  - Git Sync
+  - Administration
+  - Enterprise
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.hypertune.com/pricing/overview
+  baseURL: https://edge.hypertune.com
+  properties:
+  - url: https://docs.hypertune.com/pricing/overview
+    type: Documentation
+  - url: https://docs.hypertune.com/getting-started/set-up-hypertune
+    type: APIReference
+  description: Programmatic and Git-based management of flags, experiments, and configuration.
+    Hypertune versions all flags, experiments, analytics events, and app configuration
+    together in a single Git-based history; bidirectional Git repo sync, API access,
+    and bulk user management are offered on the Enterprise plan.
+common:
+- type: GitHubOrganization
+  url: https://github.com/hypertunehq
+- type: LinkedIn
+  url: https://www.linkedin.com/company/hypertune
+- type: Website
+  url: https://www.hypertune.com
+- type: Documentation
+  url: https://docs.hypertune.com
+- type: Plans
+  url: plans/hypertune-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/hypertune-rate-limits.yml
+- type: FinOps
+  url: finops/hypertune-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

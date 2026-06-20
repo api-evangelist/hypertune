@@ -1,0 +1,96 @@
+aid: hypertune
+name: Hypertune
+review:
+  question: Does Hypertune expose a documented public WebSocket or streaming API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Hypertune's transport is request/response
+    over HTTPS: a GraphQL Edge API (GET/POST https://edge.hypertune.com/graphql)
+    and a single SDK-initialization fetch of flag logic from Hypertune Edge
+    (Cloudflare CDN). SDKs "listen for updates to your flag logic in the
+    background" and flush analytics events in the background, but no documented
+    public WebSocket (ws/wss), Server-Sent Events, or other streaming wire
+    protocol is exposed to API consumers, so nothing falls within AsyncAPI scope.
+findings:
+  summary: |
+    Hypertune is a type-safe, Git-based feature-flag, experimentation, analytics,
+    and app-configuration platform whose primary developer surface is GraphQL +
+    SDK + edge config delivery. Flag logic is authored in Hyperlang and projected
+    as a per-project GraphQL schema. The canonical integration is the type-safe
+    TypeScript SDK, which uses a CLI to code-generate a fully typed client; at
+    initialization the SDK makes a single network request to fetch flag logic
+    from Hypertune Edge (served from Cloudflare CDN), then evaluates flags
+    locally, synchronously, in memory with no per-evaluation network latency.
+    A no-SDK path is the GraphQL Edge API at https://edge.hypertune.com/graphql,
+    authenticated with a URL-encoded project token, where queries must supply all
+    field arguments so flag logic is fully reduced to a JSON result (typically
+    <25ms). Analytics events, experiment exposures, and flag evaluations are
+    collected by the SDK and flushed to Hypertune Edge in the background. No
+    documented public WebSocket or streaming API exists. Caveat: Hypertune has
+    announced it is shutting down on August 10, 2026 and is not accepting new
+    sign-ups.
+  transports:
+    - protocol: GraphQL
+      scheme: https
+      baseURL: https://edge.hypertune.com/graphql
+      documented: true
+      note: Token-authenticated GraphQL Edge API (GET with URL-encoded query/variables, or POST). Queries must contain all field arguments so logic is fully reduced to JSON.
+    - protocol: SDK
+      scheme: https
+      documented: true
+      note: Type-safe TypeScript SDK with CLI-generated client; fetches flag logic once from Hypertune Edge then evaluates locally, synchronously, in memory.
+    - protocol: Edge Config Delivery
+      scheme: https
+      baseURL: https://edge.hypertune.com
+      documented: true
+      note: Single SDK-initialization fetch of flag logic served from Cloudflare CDN; background updates and background analytics-event flushing over HTTPS.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for flag evaluation, config delivery, or analytics as of the review date.
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: Background logic updates are not exposed as a documented Server-Sent Events stream to API consumers.
+  endpointsConfirmed:
+    - GET  https://edge.hypertune.com/graphql?token={token}
+    - POST https://edge.hypertune.com/graphql?token={token}
+  modelNotes: |
+    The exact GraphQL schema is generated per project from the Hyperlang flag
+    tree, so concrete query fields and arguments differ per account. A
+    representative schema is provided at graphql/hypertune-schema.graphql and
+    described in graphql/hypertune-graphql.md; the OpenAPI at
+    openapi/hypertune-openapi.yml models the GraphQL Edge transport (GET/POST
+    /graphql with token auth) accurately rather than fabricating undocumented
+    management endpoints.
+sources:
+  - url: https://docs.hypertune.com/concepts/architecture
+    type: Documentation
+    note: SDKs make a single init request to fetch flag logic from Hypertune Edge (Cloudflare CDN), then evaluate locally; updates and event flushing happen in the background.
+  - url: https://docs.hypertune.com/concepts/graphql-api
+    type: Documentation
+    note: GraphQL API hosted on Hypertune Edge (<25ms); queries must contain all field arguments so logic is fully reduced into a JSON result.
+  - url: https://docs.hypertune.com/getting-started/graphql-quickstart
+    type: APIReference
+    note: Endpoint GET https://edge.hypertune.com/graphql with URL-encoded token query parameter and URL-encoded query/variables.
+  - url: https://docs.hypertune.com/analytics/guide
+    type: Documentation
+    note: Events logged via event-trigger flags ('Log event'); flushLogs awaited in serverless to guarantee delivery.
+  - url: https://www.hypertune.com/pricing
+    type: Pricing
+    note: Free/Starter/Pro per-seat tiers plus Enterprise; CDN-request and analytics-event quotas. States shutdown on August 10, 2026.
+actions:
+  apisYmlUpdated: true
+  reason: |
+    Hypertune's documented surface is GraphQL + SDK + edge config delivery over
+    HTTPS request/response. No public WebSocket or streaming wire protocol is
+    documented, so no AsyncAPI artifact was created. The GraphQL nature is
+    captured in a GraphQL artifact and a transport-accurate OpenAPI for the Edge
+    API. The August 10, 2026 shutdown is recorded as a caveat across plans,
+    rate-limits, and finops artifacts.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

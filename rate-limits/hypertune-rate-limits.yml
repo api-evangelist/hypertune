@@ -1,0 +1,71 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Hypertune
+providerId: hypertune
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: false
+tags:
+- Feature Flags
+- Experimentation
+- Analytics
+- Edge
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Hypertune does not publish numeric per-request rate limits for the Edge
+  GraphQL API or SDK initialization. Instead, plan capacity is governed by
+  metered quotas: included CDN requests (SDK initialization / GraphQL Edge
+  evaluation) and analytics events per month, with per-million overage billing
+  on paid tiers. Because SDKs fetch flag logic once and then evaluate flags
+  locally in memory, the dominant request volume is initialization and
+  background log flushing rather than per-flag-evaluation calls.
+notes: >-
+  No explicit RPM/RPS throttling thresholds are documented; capacity is
+  expressed as monthly CDN-request and analytics-event quotas on the pricing
+  page. Verify current overage rates and any soft limits with Hypertune on
+  reconciliation. NOTE: Hypertune is shutting down on August 10, 2026.
+sources:
+- https://www.hypertune.com/pricing
+- https://docs.hypertune.com/pricing/overview
+- https://docs.hypertune.com/concepts/architecture
+responseCodes:
+  throttled: 429
+limits:
+- name: CDN Requests (Free)
+  scope: account
+  metric: requests
+  limit: 1000000
+  notes: Included SDK initialization / GraphQL Edge requests per month on the Free plan.
+- name: CDN Requests (Starter / Pro)
+  scope: account
+  metric: requests
+  limit: 2000000
+  notes: 2M/month included, then $10 per additional 1M.
+- name: Analytics Events (Free)
+  scope: account
+  metric: events
+  limit: 1000000
+  notes: Included analytics events per month on the Free plan.
+- name: Analytics Events (Starter / Pro)
+  scope: account
+  metric: events
+  limit: 2000000
+  notes: 2M/month included, then $30 per additional 1M.
+- name: Enterprise Volume
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: Flexible volume-based and MTU pricing negotiated per contract.
+policies:
+- name: Metered Quotas
+  description: Capacity is governed by monthly CDN-request and analytics-event quotas with per-million overage, not fixed RPM/RPS throttles.
+- name: Local Evaluation
+  description: SDKs fetch flag logic once and evaluate locally in memory, minimizing per-evaluation network requests.
+- name: Background Flushing
+  description: Analytics events and exposures are batched and flushed to Hypertune Edge in the background to reduce request volume.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,99 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Hypertune
+providerId: hypertune
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Feature Flags
+- Experimentation
+- Analytics
+- App Configuration
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Hypertune spend. Hypertune bills a per-team-member subscription
+  (Free / Starter at $10 / Pro at $20 per seat per month) plus usage-based
+  overage on two meters: CDN requests (SDK initialization and GraphQL Edge
+  evaluation) at $10 per additional 1M beyond the 2M monthly allowance, and
+  analytics events at $30 per additional 1M beyond the 2M monthly allowance.
+  Enterprise uses flexible volume-based and MTU pricing. Because SDKs fetch flag
+  logic once and evaluate locally in memory, CDN-request spend is driven mainly
+  by initialization frequency rather than per-flag-evaluation calls.
+notes: >-
+  Per-seat and overage rates reflect the published hypertune.com/pricing page as
+  of 2026-06-20; verify on reconciliation. NOTE: Hypertune is shutting down and
+  will cease operations on August 10, 2026.
+sources:
+- https://www.hypertune.com/pricing
+- https://docs.hypertune.com/pricing/overview
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Hypertune
+serviceCategory: Developer Tools
+billingModel:
+  pricingCategory: Subscription-and-Usage
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: Hypertune
+  ServiceCategory: Developer Tools
+  ProviderName: Hypertune
+  PublisherName: Hypertune
+  InvoiceIssuerName: Hypertune
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-and-Usage
+meters:
+- name: team_members
+  description: Subscribed seats billed per team member per month ($10 Starter / $20 Pro).
+  unit: seats
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: cdn_requests
+  description: SDK initialization and GraphQL Edge requests; 2M/month included on paid tiers, then $10 per 1M.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+- name: analytics_events
+  description: Analytics events and exposures flushed to Hypertune Edge; 2M/month included on paid tiers, then $30 per 1M.
+  unit: events
+  aggregation: sum
+  dimensions:
+  - account
+  - project
+- name: enterprise_volume
+  description: Enterprise volume-based and MTU (monthly tracked user) billing negotiated per contract.
+  unit: units
+  aggregation: sum
+  dimensions:
+  - account
+  - contract
+principles:
+- name: Visibility
+  description: Track seat count plus monthly CDN-request and analytics-event consumption against plan allowances.
+- name: Allocation
+  description: Map projects and environments to teams; attribute CDN-request and event meters per project.
+- name: Optimization
+  description: Lean on local in-memory evaluation and SDK bootstrapping to limit initialization requests; batch and flush events efficiently to stay under allowances.
+- name: Accountability
+  description: Review seat assignments and overage on CDN requests and analytics events monthly against budget.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

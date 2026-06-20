@@ -1,0 +1,102 @@
+{
+  "info": {
+    "_postman_id": "b1f0a3d2-7c64-4e9a-9f2e-0a1d2c3b4e5f",
+    "name": "Hypertune Edge API",
+    "description": "Token-authenticated GraphQL Edge API for the Hypertune feature-flag, experimentation, analytics, and app-configuration platform. Flag logic is authored in Hyperlang and projected as a per-project GraphQL schema; queries must supply all field arguments so logic is fully reduced to a JSON result on the edge.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://edge.hypertune.com"
+    },
+    {
+      "key": "token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "GraphQL",
+      "description": "Evaluate flags, experiments, and app configuration via the Hypertune Edge GraphQL API.",
+      "item": [
+        {
+          "name": "Evaluate flags (GET)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/graphql?token={{token}}&query=query%20TestQuery%20%7B%20root(context%3A%20%7Benvironment%3A%20%22development%22%2C%20user%3A%20%7Bid%3A%20%22test_id%22%7D%7D)%20%7B%20exampleFlag%20%7D%20%7D",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "description": "URL-encoded Hypertune project token."
+                },
+                {
+                  "key": "query",
+                  "value": "query%20TestQuery%20%7B%20root(context%3A%20%7Benvironment%3A%20%22development%22%2C%20user%3A%20%7Bid%3A%20%22test_id%22%7D%7D)%20%7B%20exampleFlag%20%7D%20%7D",
+                  "description": "URL-encoded GraphQL query. Must contain all field arguments."
+                }
+              ]
+            },
+            "description": "Send a GraphQL query on the GET endpoint with the URL-encoded project token and query. Flag logic is fully reduced to a JSON result on Hypertune Edge."
+          },
+          "response": []
+        },
+        {
+          "name": "Evaluate flags (POST)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "graphql",
+              "graphql": {
+                "query": "query TestQuery {\n  root(\n    context: {\n      environment: \"development\"\n      user: { id: \"test_id\", name: \"Test\", email: \"test@test.com\" }\n    }\n  ) {\n    exampleFlag\n  }\n}",
+                "variables": "{}"
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/graphql?token={{token}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "graphql"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "{{token}}",
+                  "description": "URL-encoded Hypertune project token."
+                }
+              ]
+            },
+            "description": "Standard GraphQL POST form of the evaluation endpoint. The query must contain all field arguments so flag logic is fully reduced to JSON."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

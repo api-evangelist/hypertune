@@ -1,0 +1,97 @@
+# Representative GraphQL schema for Hypertune (https://www.hypertune.com/).
+#
+# Hypertune generates a unique GraphQL schema per project from your Hyperlang
+# flag tree, so the real types, field names, and arguments differ for every
+# account. This schema is an illustrative model of the root(context: ...) query
+# surface and the common flag / experiment / event shapes. It is NOT the schema
+# of any specific project.
+#
+# Endpoint: GET https://edge.hypertune.com/graphql?token=${URL_ENCODED_TOKEN}
+# Docs:     https://docs.hypertune.com/concepts/graphql-api
+
+"Arbitrary JSON payload (event properties, config blobs)."
+scalar JSON
+
+"ISO-8601 timestamp."
+scalar DateTime
+
+"Deployment environment used to select flag logic."
+enum Environment {
+  DEVELOPMENT
+  PREVIEW
+  PRODUCTION
+}
+
+"Targeting attributes for the current evaluation subject."
+input UserInput {
+  id: String!
+  name: String
+  email: String
+}
+
+"""
+Evaluation context. Carries the environment plus targeting attributes. Flag
+logic that depends on these attributes is reduced against the supplied context.
+"""
+input Context {
+  environment: String!
+  user: UserInput!
+}
+
+"""
+The reduced flag tree for a given context. Field names below are illustrative;
+your project's generated Root type exposes one field per top-level flag,
+experiment, or configuration value defined in Hyperlang.
+"""
+type Root {
+  "Example boolean feature flag."
+  exampleFlag: Boolean!
+
+  "Example string / multivariate configuration value."
+  maxUploadSizeMb: Int!
+
+  "Example A/B test exposure."
+  checkoutExperiment: Experiment!
+
+  "Example app-configuration blob."
+  config: JSON
+}
+
+"Variant assignment and exposure metadata for an A/B test."
+type Experiment {
+  "The variant key assigned to the current context."
+  variant: String!
+
+  "Optional variant payload / configuration."
+  payload: JSON
+
+  "When the exposure was evaluated."
+  exposedAt: DateTime
+}
+
+"Result envelope for an event-trigger ('Log event') evaluation."
+type EventLog {
+  accepted: Boolean!
+}
+
+type Query {
+  """
+  Single entry point. Supply the full Context (and all field arguments your flag
+  logic requires) so logic is fully reduced to a concrete JSON result on the edge.
+  """
+  root(context: Context!): Root!
+}
+
+type Mutation {
+  """
+  Represents the background log flush. SDKs collect flag evaluations, experiment
+  exposures, and analytics events and flush them to Hypertune Edge; this models
+  an explicit event log.
+  """
+  logEvent(context: Context!, name: String!, properties: JSON): EventLog!
+}
+
+schema {
+  query: Query
+  mutation: Mutation
+}

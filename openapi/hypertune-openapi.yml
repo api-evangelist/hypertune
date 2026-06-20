@@ -1,0 +1,165 @@
+openapi: 3.0.1
+info:
+  title: Hypertune Edge API
+  description: >-
+    HTTP surface of Hypertune Edge, the Cloudflare-CDN-hosted edge service that
+    delivers feature-flag logic and serves the GraphQL evaluation API for the
+    Hypertune feature-flag, experimentation, analytics, and app-configuration
+    platform. Hypertune is primarily consumed through its type-safe TypeScript
+    SDK (which fetches flag logic once at initialization and then evaluates flags
+    locally, synchronously, in memory) and through this token-authenticated
+    GraphQL Edge endpoint for no-SDK access. Flag logic is authored in Hyperlang
+    and projected as a per-project GraphQL schema, so concrete query fields and
+    arguments differ per project. Analytics events and exposures are flushed back
+    to Hypertune Edge by the SDK in the background. This document models the
+    documented edge transport; it does not fabricate undocumented management
+    endpoints.
+  termsOfService: https://www.hypertune.com/terms
+  contact:
+    name: Hypertune
+    url: https://www.hypertune.com
+  version: '1.0'
+servers:
+  - url: https://edge.hypertune.com
+    description: Hypertune Edge (Cloudflare CDN)
+paths:
+  /graphql:
+    get:
+      operationId: evaluateFlags
+      tags:
+        - GraphQL
+      summary: Evaluate flags, experiments, and config via the GraphQL Edge API.
+      description: >-
+        Send a GraphQL query to Hypertune Edge to evaluate your feature flags,
+        experiments, and app configuration. The query must supply all field
+        arguments (the targeting context) so flag logic can be fully reduced into
+        a concrete JSON result. The project token is passed as a URL-encoded
+        query parameter; the GraphQL query and variables are passed URL-encoded
+        on the same GET request. Responses are served from the edge, typically in
+        under 25ms.
+      parameters:
+        - name: token
+          in: query
+          required: true
+          description: URL-encoded Hypertune project token.
+          schema:
+            type: string
+        - name: query
+          in: query
+          required: true
+          description: URL-encoded GraphQL query. Must contain all field arguments.
+          schema:
+            type: string
+        - name: variables
+          in: query
+          required: false
+          description: URL-encoded JSON string of GraphQL variables.
+          schema:
+            type: string
+        - name: operationName
+          in: query
+          required: false
+          description: Name of the operation to execute when the query defines several.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: GraphQL response envelope with the reduced flag/config result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+        '400':
+          description: Malformed query or missing required field arguments.
+        '401':
+          description: Missing or invalid project token.
+    post:
+      operationId: evaluateFlagsPost
+      tags:
+        - GraphQL
+      summary: Evaluate flags via a GraphQL POST request.
+      description: >-
+        Standard GraphQL POST form of the evaluation endpoint. The project token
+        is supplied as a URL query parameter and the GraphQL query and variables
+        are sent as a JSON request body. As with the GET form, the query must
+        supply all field arguments so flag logic is fully reduced to JSON.
+      parameters:
+        - name: token
+          in: query
+          required: true
+          description: URL-encoded Hypertune project token.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GraphQLRequest'
+      responses:
+        '200':
+          description: GraphQL response envelope with the reduced flag/config result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphQLResponse'
+        '400':
+          description: Malformed query or missing required field arguments.
+        '401':
+          description: Missing or invalid project token.
+components:
+  schemas:
+    GraphQLRequest:
+      type: object
+      required:
+        - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query string. Must contain all field arguments.
+        variables:
+          type: object
+          additionalProperties: true
+          description: Optional GraphQL variables.
+        operationName:
+          type: string
+          description: Optional operation name.
+    GraphQLResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties: true
+          description: >-
+            The reduced flag/config result, rooted at the project's `root` field.
+            Concrete fields are generated per project from the Hyperlang flag tree.
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphQLError'
+    GraphQLError:
+      type: object
+      properties:
+        message:
+          type: string
+        path:
+          type: array
+          items:
+            type: string
+        locations:
+          type: array
+          items:
+            type: object
+            properties:
+              line:
+                type: integer
+              column:
+                type: integer
+  securitySchemes:
+    projectToken:
+      type: apiKey
+      in: query
+      name: token
+      description: URL-encoded Hypertune project token passed as a query parameter.
+security:
+  - projectToken: []

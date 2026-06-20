@@ -1,0 +1,195 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Hypertune
+providerId: hypertune
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- Feature Flags
+- Experimentation
+- A/B Testing
+- Analytics
+- App Configuration
+- Plans
+description: >-
+  Hypertune uses per-team-member subscription tiers (Free, Starter, Pro) plus a
+  custom Enterprise plan. Across paid tiers, included CDN requests and analytics
+  events are metered with per-million overage rates. Flags, experiments,
+  environments, projects, bandwidth, and service connections are unlimited on
+  every plan; higher tiers add branches, pull requests, team roles, approval
+  workflows, advanced experiment analysis, and (on Enterprise) API access and
+  bidirectional Git repo sync.
+notes: >-
+  Pricing reflects the published hypertune.com/pricing page as of 2026-06-20.
+  IMPORTANT: Hypertune has announced it is shutting down and will cease
+  operations on August 10, 2026, and is no longer accepting new sign-ups.
+sources:
+- https://www.hypertune.com/pricing
+- https://docs.hypertune.com/pricing/overview
+plans:
+- id: hypertune-free
+  name: Free
+  type: free
+  description: >-
+    Free tier for up to 3 team members with unlimited flags, experiments,
+    environments, projects, bandwidth, and service connections.
+  entries:
+  - label: Team Members
+    name: team_members
+    type: flat
+    metric: seats
+    limit: 3
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0
+    userMultiplied: false
+  - label: CDN Requests
+    name: cdn_requests
+    type: usage
+    metric: requests
+    limit: 1000000
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: included up to 1M/month
+    userMultiplied: false
+  - label: Analytics Events
+    name: analytics_events
+    type: usage
+    metric: events
+    limit: 1000000
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: included up to 1M/month
+    userMultiplied: false
+  elements:
+  - name: Unlimited Flags
+  - name: Unlimited Experiments
+  - name: Unlimited Environments
+  - name: Unlimited Projects
+  - name: GraphQL Edge API
+  - name: TypeScript SDK
+- id: hypertune-starter
+  name: Starter
+  type: paid
+  description: >-
+    Per-seat tier adding branches to test flag changes and support old app
+    versions, pull requests for reviewing and merging changes, flag labels, and
+    webhooks.
+  entries:
+  - label: Per Team Member
+    name: per_team_member
+    type: flat
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $10 per team member / month
+    userMultiplied: true
+  - label: CDN Requests
+    name: cdn_requests
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: 2M/month included, then $10 per 1M
+    userMultiplied: false
+  - label: Analytics Events
+    name: analytics_events
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: 2M/month included, then $30 per 1M
+    userMultiplied: false
+  elements:
+  - name: Branches
+  - name: Pull Requests
+  - name: Flag Labels
+  - name: Webhooks
+- id: hypertune-pro
+  name: Pro
+  type: paid
+  description: >-
+    Per-seat tier for teams scaling flags and experimentation, adding team
+    roles, approval workflows, granular permissions, advanced experiment
+    analysis, sequential testing, and dedicated Slack support.
+  entries:
+  - label: Per Team Member
+    name: per_team_member
+    type: flat
+    metric: seats
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $20 per team member / month
+    userMultiplied: true
+  - label: CDN Requests
+    name: cdn_requests
+    type: usage
+    metric: requests
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: 2M/month included, then $10 per 1M
+    userMultiplied: false
+  - label: Analytics Events
+    name: analytics_events
+    type: usage
+    metric: events
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1000000
+    price: 2M/month included, then $30 per 1M
+    userMultiplied: false
+  elements:
+  - name: Team Roles
+  - name: Approval Workflows
+  - name: Granular Permissions
+  - name: Advanced Experiment Analysis
+  - name: Sequential Testing
+  - name: Dedicated Slack Support
+- id: hypertune-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom plan for organizations with high volume, security, control, or
+    support needs. Flexible volume-based and MTU pricing.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: API Access
+  - name: Git Repo Bidirectional Sync
+  - name: AI Loops
+  - name: Bulk User Management
+  - name: Warehouse-Native Implementation
+  - name: Self-Hosting
+  - name: Air-Gapped Environments
+  - name: Customer Success Manager
+  - name: Enterprise SLAs
+  - name: SAML 2.0 SSO
+  - name: HIPAA Compliance
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
