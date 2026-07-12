@@ -109,6 +109,10 @@ apis:
     together in a single Git-based history; bidirectional Git repo sync, API access,
     and bulk user management are offered on the Enterprise plan.
 common:
+- type: DomainSecurity
+  url: security/hypertune-domain-security.yml
+- type: Authentication
+  url: authentication/hypertune-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/hypertunehq
 - type: LinkedIn
@@ -123,6 +127,8 @@ common:
   url: rate-limits/hypertune-rate-limits.yml
 - type: FinOps
   url: finops/hypertune-finops.yml
+- url: https://www.hypertune.com/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/hypertune-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - query
+schemes:
+- name: projectToken
+  type: apiKey
+  in: query
+  parameter: token
+  description: URL-encoded Hypertune project token passed as a query parameter.
+  sources:
+  - openapi/hypertune-openapi.yml
