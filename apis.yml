@@ -109,6 +109,8 @@ apis:
     together in a single Git-based history; bidirectional Git repo sync, API access,
     and bulk user management are offered on the Enterprise plan.
 common:
+- type: AgenticAccess
+  url: agentic-access/hypertune-agentic-access.yml
 - type: DomainSecurity
   url: security/hypertune-domain-security.yml
 - type: Authentication
