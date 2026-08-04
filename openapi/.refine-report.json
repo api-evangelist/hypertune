@@ -1,0 +1,14 @@
+{
+  "provider": "hypertune",
+  "sources": [
+    "hypertune-graphql-api-openapi.yml"
+  ],
+  "outputs": [
+    "hypertune-graphql-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
