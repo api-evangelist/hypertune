@@ -1,0 +1,464 @@
+{
+  "item": [
+    {
+      "id": "2480e604-f698-4b29-aff7-9f05ce7a2a3d",
+      "name": "GraphQL",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "63096e12-3c63-46e4-99d3-b9a8b390c344",
+          "name": "Evaluate flags, experiments, and config via the GraphQL Edge API.",
+          "request": {
+            "name": "Evaluate flags, experiments, and config via the GraphQL Edge API.",
+            "description": {
+              "content": "Send a GraphQL query to Hypertune Edge to evaluate your feature flags, experiments, and app configuration. The query must supply all field arguments (the targeting context) so flag logic can be fully reduced into a concrete JSON result. The project token is passed as a URL-encoded query parameter; the GraphQL query and variables are passed URL-encoded on the same GET request. Responses are served from the edge, typically in under 25ms.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) URL-encoded Hypertune project token."
+                },
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "(Required) URL-encoded GraphQL query. Must contain all field arguments."
+                },
+                {
+                  "disabled": false,
+                  "key": "variables",
+                  "value": "<string>",
+                  "description": "URL-encoded JSON string of GraphQL variables."
+                },
+                {
+                  "disabled": false,
+                  "key": "operationName",
+                  "value": "<string>",
+                  "description": "Name of the operation to execute when the query defines several."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c048c584-209a-4fb6-af00-029b03acfa1e",
+              "name": "GraphQL response envelope with the reduced flag/config result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variables",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": 8174.9635924327695,\n    \"key_1\": 9253\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 6224,\n          \"column\": 1454\n        },\n        {\n          \"line\": 4148,\n          \"column\": 5152\n        }\n      ]\n    },\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 2246,\n          \"column\": 4620\n        },\n        {\n          \"line\": 9100,\n          \"column\": 5935\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "06b959be-8d86-4b18-bd94-04ed0dcfafbd",
+              "name": "Malformed query or missing required field arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variables",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "29e71443-144f-4ff2-85aa-26bfa8c4ce9e",
+              "name": "Missing or invalid project token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variables",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "operationName",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e7733496-4de1-4f93-9eea-3c20be697ed6",
+          "name": "Evaluate flags via a GraphQL POST request.",
+          "request": {
+            "name": "Evaluate flags via a GraphQL POST request.",
+            "description": {
+              "content": "Standard GraphQL POST form of the evaluation endpoint. The project token is supplied as a URL query parameter and the GraphQL query and variables are sent as a JSON request body. As with the GET form, the query must supply all field arguments so flag logic is fully reduced to JSON.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "graphql"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) URL-encoded Hypertune project token."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": 3313\n  },\n  \"operationName\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e610dc6d-12c8-498c-ab4a-d9e2b85071a3",
+              "name": "GraphQL response envelope with the reduced flag/config result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": \"string\"\n  },\n  \"operationName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"key_0\": \"string\",\n    \"key_1\": true\n  },\n  \"errors\": [\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 3463,\n          \"column\": 8110\n        },\n        {\n          \"line\": 8678,\n          \"column\": 1900\n        }\n      ]\n    },\n    {\n      \"message\": \"string\",\n      \"path\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locations\": [\n        {\n          \"line\": 9768,\n          \"column\": 4459\n        },\n        {\n          \"line\": 8092,\n          \"column\": 6096\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f7b512d-2900-468a-9d3f-4d0592e12022",
+              "name": "Malformed query or missing required field arguments.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": \"string\"\n  },\n  \"operationName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1672ff7e-a24b-4353-9620-1716ff63cead",
+              "name": "Missing or invalid project token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "graphql"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"query\": \"<string>\",\n  \"variables\": {\n    \"key_0\": \"string\"\n  },\n  \"operationName\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://edge.hypertune.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "6dd0f5b4-990f-4574-9031-bf8f2aa63e74",
+    "name": "Hypertune Edge GraphQL API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "HTTP surface of Hypertune Edge, the Cloudflare-CDN-hosted edge service that delivers feature-flag logic and serves the GraphQL evaluation API for the Hypertune feature-flag, experimentation, analytics, and app-configuration platform. Hypertune is primarily consumed through its type-safe TypeScript SDK (which fetches flag logic once at initialization and then evaluates flags locally, synchronously, in memory) and through this token-authenticated GraphQL Edge endpoint for no-SDK access. Flag logic is authored in Hyperlang and projected as a per-project GraphQL schema, so concrete query fields and arguments differ per project. Analytics events and exposures are flushed back to Hypertune Edge by the SDK in the background. This document models the documented edge transport; it does not fabricate undocumented management endpoints.\n\nContact Support:\n Name: Hypertune",
+      "type": "text/plain"
+    }
+  }
+}

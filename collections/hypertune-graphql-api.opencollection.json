@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Hypertune Edge GraphQL API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GraphQL",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Evaluate flags, experiments, and config via the GraphQL Edge API.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://edge.hypertune.com/graphql",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded Hypertune project token."
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded GraphQL query. Must contain all field arguments."
+              },
+              {
+                "name": "variables",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded JSON string of GraphQL variables."
+              },
+              {
+                "name": "operationName",
+                "value": "",
+                "type": "query",
+                "description": "Name of the operation to execute when the query defines several."
+              }
+            ]
+          },
+          "docs": "Send a GraphQL query to Hypertune Edge to evaluate your feature flags, experiments, and app configuration. The query must supply all field arguments (the targeting context) so flag logic can be fully reduced into a concrete JSON result. The project token is passed as a URL-encoded query parameter; the GraphQL query and variables are passed URL-encoded on the same GET request. Responses are served from the edge, typically in under 25ms."
+        },
+        {
+          "info": {
+            "name": "Evaluate flags via a GraphQL POST request.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://edge.hypertune.com/graphql",
+            "params": [
+              {
+                "name": "token",
+                "value": "",
+                "type": "query",
+                "description": "URL-encoded Hypertune project token."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Standard GraphQL POST form of the evaluation endpoint. The project token is supplied as a URL query parameter and the GraphQL query and variables are sent as a JSON request body. As with the GET form, the query must supply all field arguments so flag logic is fully reduced to JSON."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
