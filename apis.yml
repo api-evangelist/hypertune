@@ -8,6 +8,18 @@ description: Hypertune is a type-safe, Git-based platform for feature flags, A/B
   fetch flag logic once from Hypertune Edge (Cloudflare CDN) at initialization, then
   evaluate flags locally and synchronously in memory. A GraphQL Edge API offers a
   no-SDK path, and analytics events are flushed back to Hypertune Edge in the background.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
