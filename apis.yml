@@ -66,16 +66,16 @@ apis:
     Programmatic and Git-based management of flags, experiments, and configuration. Hypertune versions
     all flags, experiments, analytics events, and app configuration together in a single Git-based history;
     bidirectional Git repo sync, API access, and bulk user management are offered on the Enterprise plan.
-- aid: hypertune:hypertune-graphql-api
-  name: Hypertune GraphQL API
-  description: The GraphQL API from Hypertune — 1 operation(s) for graphql.
-  humanURL: https://docs.hypertune.com/concepts/graphql-api
-  baseURL: https://edge.hypertune.com/graphql
+- aid: hypertune:hypertune-graph-ql-api
+  name: Hypertune Graph QL API
+  description: The Graph QL API from Hypertune — 1 operation(s) for graph ql.
+  humanURL: https://docs.hypertune.com/pricing/overview
+  baseURL: https://edge.hypertune.com
   tags:
-  - GraphQL
+  - Graph QL
   properties:
   - type: OpenAPI
-    url: openapi/hypertune-graphql-api-openapi.yml
+    url: openapi/hypertune-graph-ql-api-openapi.yml
   - type: Documentation
     url: https://docs.hypertune.com/concepts/graphql-api
   - type: APIReference
