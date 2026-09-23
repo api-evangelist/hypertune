@@ -1,14 +1,24 @@
 {
   "provider": "hypertune",
   "sources": [
-    "hypertune-graphql-api-openapi.yml"
+    "_original/hypertune-openapi.yml"
   ],
   "outputs": [
     "hypertune-graphql-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "hypertune-openapi.yml: upgraded openapi 3.0.1 -> OpenAPI 3.2.0",
+    "hypertune-openapi.yml: declared missing tag: GraphQL",
+    "superseded outputs removed: hypertune-graph-ql-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 2 total)"
+  ],
+  "skipped": [
+    "hypertune-graph-ql-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
