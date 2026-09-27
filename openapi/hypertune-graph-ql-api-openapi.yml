@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Hypertune Edge Graph QL API
+  title: Hypertune Edge GraphQL API
   description: HTTP surface of Hypertune Edge, the Cloudflare-CDN-hosted edge service that delivers feature-flag logic and serves the GraphQL evaluation API for the Hypertune feature-flag, experimentation, analytics, and app-configuration platform.
   termsOfService: https://www.hypertune.com/terms
   contact:
@@ -90,21 +90,6 @@ paths:
           description: Missing or invalid project token.
 components:
   schemas:
-    GraphQLRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: GraphQL query string. Must contain all field arguments.
-        variables:
-          type: object
-          additionalProperties: true
-          description: Optional GraphQL variables.
-        operationName:
-          type: string
-          description: Optional operation name.
     GraphQLError:
       type: object
       properties:
@@ -123,6 +108,21 @@ components:
                 type: integer
               column:
                 type: integer
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query string. Must contain all field arguments.
+        variables:
+          type: object
+          additionalProperties: true
+          description: Optional GraphQL variables.
+        operationName:
+          type: string
+          description: Optional operation name.
     GraphQLResponse:
       type: object
       properties:
