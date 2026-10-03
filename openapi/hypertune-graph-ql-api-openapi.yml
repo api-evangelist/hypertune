@@ -90,6 +90,21 @@ paths:
           description: Missing or invalid project token.
 components:
   schemas:
+    GraphQLRequest:
+      type: object
+      required:
+      - query
+      properties:
+        query:
+          type: string
+          description: GraphQL query string. Must contain all field arguments.
+        variables:
+          type: object
+          additionalProperties: true
+          description: Optional GraphQL variables.
+        operationName:
+          type: string
+          description: Optional operation name.
     GraphQLError:
       type: object
       properties:
@@ -108,21 +123,6 @@ components:
                 type: integer
               column:
                 type: integer
-    GraphQLRequest:
-      type: object
-      required:
-      - query
-      properties:
-        query:
-          type: string
-          description: GraphQL query string. Must contain all field arguments.
-        variables:
-          type: object
-          additionalProperties: true
-          description: Optional GraphQL variables.
-        operationName:
-          type: string
-          description: Optional operation name.
     GraphQLResponse:
       type: object
       properties:
