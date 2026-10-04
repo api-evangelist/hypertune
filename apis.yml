@@ -35,6 +35,9 @@ accessModel:
   generated: '2026-09-03'
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/hypertune.png
+x-docs-platform: gitbook
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-10-03
 tags:
 - Feature Flags
 - Experimentation
@@ -72,6 +75,8 @@ apis:
   humanURL: https://docs.hypertune.com/pricing/overview
   baseURL: https://edge.hypertune.com
   tags:
+  - GraphQL
+  tags_raw:
   - Graph QL
   properties:
   - type: OpenAPI
@@ -93,6 +98,9 @@ apis:
   - type: APIReference
     url: https://docs.hypertune.com/analytics/overview
 common:
+- type: CapabilityMap
+  url: capabilities/hypertune-capability-edges.yml
+  name: Hypertune Business Capability Map
 - type: AgenticAccess
   url: agentic-access/hypertune-agentic-access.yml
 - type: DomainSecurity
