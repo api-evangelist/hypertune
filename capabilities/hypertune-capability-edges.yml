@@ -1,0 +1,27 @@
+slug: hypertune
+provider: Hypertune
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Graph QL
+  spec_file: hypertune-graph-ql-api-openapi.yml
+  capability_id: BC-4210.50
+  capability_id_l1: BC-4210
+  capability_name: Feature Flag Management
+  confidence: 0.78
+  evidence: 'GET /graphql evaluateFlags — "Evaluate flags, experiments, and config via the GraphQL Edge
+    API"; description: "edge service that delivers feature-flag logic"'
+  reason: The two operations are the runtime evaluation surface of a feature-flag platform — flag logic
+    fetched from the edge and evaluated for a given context. That is runtime control/targeting of feature
+    flags (BC-4210.50) rather than a generic GraphQL gateway. Some ambiguity remains because the same
+    endpoint also serves experiment assignment (A/B test execution), so confidence is held below 0.9.
