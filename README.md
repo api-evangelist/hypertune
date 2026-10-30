@@ -1,4 +1,4 @@
-# Hypertune (hypertune)
+# Hypertune
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,122 +66,123 @@
 
 Hypertune is a type-safe, Git-based platform for feature flags, A/B testing, experimentation, analytics, and app configuration. Flag logic is authored in Hyperlang and modeled as a GraphQL schema; SDKs use a CLI to generate fully typed clients, fetch flag logic once from Hypertune Edge (Cloudflare CDN) at initialization, then evaluate flags locally and synchronously in memory. A GraphQL Edge API offers a no-SDK path, and analytics events are flushed back to Hypertune Edge in the background.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/hypertune/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/hypertune/refs/heads/main/apis.yml)
+**Areas:** Feature Flags · Experimentation · A/B Testing · Analytics · App Configuration · GraphQL · Edge
 
-## Tags
+## Hypertune on APIs.io
 
-- Feature Flags
-- Experimentation
-- A/B Testing
-- Analytics
-- App Configuration
-- GraphQL
-- Edge
+Everything profiled for Hypertune is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/hypertune/](https://apis.io/providers/hypertune/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (2)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Hypertune Management API](https://apis.io/apis/hypertune/hypertune-management-api/) — Programmatic and Git-based management of flags, experiments, and configuration. Hypertune versions all flags, experiments, analytics events, and app…
+- [Hypertune Graph QL API](https://apis.io/apis/hypertune/hypertune-graph-ql-api/) — The Graph QL API from Hypertune — 1 operation(s) for graph ql.
 
-## APIs
+### Published properties
 
-### Hypertune Flag Evaluation / Config (GraphQL / SDK) API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Evaluate feature flags, experiments, and app configuration. Flag logic is defined in Hyperlang and exposed as a GraphQL schema; queries to Hypertune Edge must supply all field arguments (the targeting context) so logic is fully reduced to a JSON result. Typically used through the type-safe TypeScript SDK and CLI-generated client, with a token-authenticated GraphQL Edge endpoint available for no-SDK access.
+#### GraphQL (1)
 
-- **Human URL:** [https://docs.hypertune.com/concepts/graphql-api](https://docs.hypertune.com/concepts/graphql-api)
-- **Base URL:** `https://edge.hypertune.com/graphql`
+GraphQL schemas.
 
-#### Tags
+- [Hypertune GraphQL Schema](https://apis.io/graphqls/hypertune/hypertune-graphql/)
 
-- Feature Flags
-- GraphQL
-- SDK
-- Configuration
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.hypertune.com/concepts/graphql-api)
-- [API Reference](https://docs.hypertune.com/getting-started/graphql-quickstart)
-- [OpenAPI](openapi/hypertune-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [GraphQL](graphql/hypertune-graphql.md) — [GraphQL Specification](https://spec.graphql.org/)
-- [Postman Collection](collections/hypertune.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hypertune.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Hypertune Agentic Access](https://apis.io/agentic-access/hypertune/hypertune-agentic-access/)
 
-### Hypertune Edge Config Delivery API
+#### Collections (2)
 
-Edge-delivered flag logic. SDKs make a single network request at initialization to fetch the project's flag logic from Hypertune Edge, served from Cloudflare CDN so there is no direct dependency on application servers, then evaluate flags locally and synchronously in memory and listen for logic updates in the background.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.hypertune.com/concepts/architecture](https://docs.hypertune.com/concepts/architecture)
-- **Base URL:** `https://edge.hypertune.com`
+- [Hypertune Edge API](https://apis.io/collections/hypertune/open-hypertune/)
+- [Hypertune Edge GraphQL API](https://apis.io/collections/hypertune/open-hypertune-graphql-api/)
 
-#### Tags
+#### Security (2)
 
-- Edge
-- CDN
-- Configuration
-- Initialization
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Hypertune Authentication](https://apis.io/security/hypertune/hypertune-authentication/)
+- [Hypertune Domain Security](https://apis.io/security/hypertune/hypertune-domain-security/)
 
-- [Documentation](https://docs.hypertune.com/concepts/architecture)
-- [API Reference](https://docs.hypertune.com/sdk-reference/initialization)
-- [OpenAPI](openapi/hypertune-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hypertune.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hypertune.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Hypertune Analytics / Events API
+Published plans, tiers and prices.
 
-Real-time analytics and event logging. SDKs collect flag evaluations, experiment exposures, and analytics events (logged via event-trigger flags that evaluate a "Log event" expression) and flush them to Hypertune Edge in the background; flushLogs can be awaited in serverless environments to guarantee delivery.
+- [Hypertune Plans Pricing](https://apis.io/plans/hypertune/hypertune-plans-pricing/)
 
-- **Human URL:** [https://docs.hypertune.com/analytics/guide](https://docs.hypertune.com/analytics/guide)
-- **Base URL:** `https://edge.hypertune.com`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Analytics
-- Events
-- Experimentation
-- Logging
+- [Hypertune Rate Limits](https://apis.io/rate-limits/hypertune/hypertune-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.hypertune.com/analytics/guide)
-- [API Reference](https://docs.hypertune.com/analytics/overview)
-- [OpenAPI](openapi/hypertune-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/hypertune.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/hypertune.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Hypertune Management API
+- [Hypertune Finops](https://apis.io/finops/hypertune/hypertune-finops/)
 
-Programmatic and Git-based management of flags, experiments, and configuration. Hypertune versions all flags, experiments, analytics events, and app configuration together in a single Git-based history; bidirectional Git repo sync, API access, and bulk user management are offered on the Enterprise plan.
+## Where to find this API
 
-- **Human URL:** [https://docs.hypertune.com/pricing/overview](https://docs.hypertune.com/pricing/overview)
-- **Base URL:** `https://edge.hypertune.com`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- Management
-- Git Sync
-- Administration
-- Enterprise
-
-#### Properties
-
-- [Documentation](https://docs.hypertune.com/pricing/overview)
-- [API Reference](https://docs.hypertune.com/getting-started/set-up-hypertune)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/hypertunehq)
-- [LinkedIn](https://www.linkedin.com/company/hypertune)
 - [Website](https://www.hypertune.com)
 - [Documentation](https://docs.hypertune.com)
-- [Plans](plans/hypertune-plans-pricing.yml)
-- [Rate Limits](rate-limits/hypertune-rate-limits.yml)
-- [Fin Ops](finops/hypertune-finops.yml)
+- [Blog](https://www.hypertune.com/blog)
+- [GitHub](https://github.com/hypertunehq)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.0** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 48.9 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/hypertune/](https://apis.io/providers/hypertune/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Hypertune: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/hypertune/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
